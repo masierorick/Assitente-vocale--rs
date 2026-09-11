@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Assistente
+Comment=Assistente vocale offline (Rust)
+Exec=/usr/bin/assistente-rs
+Icon=assistente-rs
+Terminal=false
+Categories=Utility;
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+StartupNotify=false

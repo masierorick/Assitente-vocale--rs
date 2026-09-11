@@ -1,0 +1,13 @@
+{
+  "always_on_top": false,
+  "botname": "MA.R.CO",
+  "browser": "vivaldi-stable",
+  "deltavolume": 10,
+  "layout": "uniwindow",
+  "musicplayer": "strawberry",
+  "piper_bin": "~/.local/bin/piper",
+  "piper_model": "~/.local/share/assistente/piper/voce_marco.onnx",
+  "sleep_time": 30,
+  "wakeword": "marco",
+  "whisper_model": "~/.local/share/assistente/whisper/ggml-medium.bin"
+}

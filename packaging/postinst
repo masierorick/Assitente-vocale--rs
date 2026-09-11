@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+# Autostart XDG di sistema (attivo per tutti gli utenti che non lo disabilitano da KDE)
+mkdir -p /etc/xdg/autostart
+ln -sf /usr/share/applications/assistente-rs.desktop /etc/xdg/autostart/assistente-rs.desktop
+
+exit 0

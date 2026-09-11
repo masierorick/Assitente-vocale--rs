@@ -1,0 +1,110 @@
+[package]
+name = "assistente-rs"
+version = "2.4.0"
+edition = "2021"
+authors = ["Masiero Riccardo <tecnomas.engineering@gmail.com>"]
+description = "Assistente vocale Italiano - cross platform "
+
+[package.metadata.deb]
+maintainer = "Masiero Riccardo <tecnomas.engineering@gmail.com>"
+copyright = "2026 Riccardo Masiero"
+license-file = ["LICENSE", "4"]
+depends = "$auto"
+section = "utils"
+priority = "optional"
+maintainer-scripts = "packaging"
+assets = [
+    ["target/release/assistente-rs", "usr/bin/assistente-rs", "755"],
+
+    ["packaging/assistente-rs.desktop", "usr/share/applications/assistente-rs.desktop", "644"],
+
+    ["config/config.json", "usr/share/assistente-rs/config/config.json", "644"],
+    ["config/messages_it.json", "usr/share/assistente-rs/config/messages_it.json", "644"],
+
+    ["data/*", "usr/share/assistente-rs/data/", "644"],
+    ["ui/*", "usr/share/assistente-rs/ui/", "644"],
+
+    # Percorsi assoluti per i file di Piper e Whisper
+    ["/home/riccardo/.local/share/assistente/piper/*", "usr/share/assistente-rs/models/piper/", "644"],
+    ["/home/riccardo/.local/share/assistente/whisper/*", "usr/share/assistente-rs/models/whisper/", "644"]
+
+]
+
+[[bin]]
+name = "assistente-rs"
+path = "src/main.rs"
+
+[dependencies]
+# Gestione errori
+anyhow      = "1"
+
+# Serializzazione JSON
+serde       = { version = "1", features = ["derive"] }
+serde_json  = "1"
+
+# HTTP sincrono (usato da ai.rs, tts.rs, stt_google.rs, yt.rs)
+ureq        = { version = "2", features = ["json"] }
+
+# URL encoding
+urlencoding = "2"
+
+# Audio: cattura microfono
+cpal        = "0.15"
+
+# Audio: scrittura WAV
+hound       = "3"
+
+# Audio: riproduzione MP3 (tts.rs)
+rodio       = { version = "0.19", features = ["mp3"] }
+
+# File temporanei
+tempfile    = "3"
+
+# Regex
+regex       = "1"
+
+dirs        = "5.0" #per ottenere la home dell'utente
+
+# Variabili d'ambiente (.env)
+dotenv      = "0.15"
+
+# Logging
+env_logger  = "0.11"
+log         = "0.4"
+
+# Apertura URL/file nel browser predefinito
+webbrowser  = "0.8"
+
+# Scansione directory ricorsiva (generate_programs_list)
+walkdir     = "2"
+
+# SQLite per Firefox bookmarks
+rusqlite    = { version = "0.31", features = ["bundled"] }
+
+
+
+# Bridge Qt/QML nativo
+qmetaobject = { version = "0.2", features = ["log"] }
+rand        = "0.8"
+
+
+whisper-rs = "0.16.0"
+
+strsim = "0.11"
+
+# Elenco/terminazione processi cross-platform (sostituisce pkill, Unix-only)
+sysinfo = "0.31"
+
+#dipendenza necessaria per GROQ - WHISPER ONLINE (client sincrono, no runtime async)
+reqwest = { version = "0.12", features = ["blocking", "multipart", "json"] }
+
+# Chiusura finestre per titolo, solo su Windows (EnumWindows/PostMessage)
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[features]
+default=[]
+gpu= ["whisper-rs/vulkan"]
