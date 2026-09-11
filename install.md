@@ -76,7 +76,7 @@ Example:
 ```json
 {
   "always_on_top": false,
-  "botname": "assistente",
+  "botname": "MA.R.CO",
   "browser": "vivaldi-stable",
   "deltavolume": 10,
   "layout": "uniwindow",
